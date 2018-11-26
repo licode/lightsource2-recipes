@@ -6,7 +6,7 @@ from pathlib import Path
 
 def run_container(*, pkg_name,
                   pythons=('3.5', '3.6', '3.7'),
-                  numpy_versions=('1.14',)):
+                  numpy_versions=('1.14',), upload=True):
     """
     Run a Docker container with supplied commands.
 
@@ -48,6 +48,9 @@ def run_container(*, pkg_name,
                f'--slack-channel {slack_channel}',
                f'--slack-token {slack_token}',
                '--allow-failures']
+    if not upload:
+        command.append('--no-upload')
+
     command = ' '.join(command)
     host_dir = str(Path.cwd().parents[0])
     guest_dir = '/repo'
@@ -58,14 +61,12 @@ def run_container(*, pkg_name,
 
     # Run Docker container
     docker_client = docker.from_env()
-    output = docker_client.containers.run(docker_image,
+    container = docker_client.containers.run(docker_image,
                                           name=container_name,
                                           command=f'sh -c "{command}"',
-                                          remove=True,
+                                          remove=False,
                                           stdout=True,
                                           stderr=True,
-                                          volumes=volumes).decode()
-    end_time = datetime.datetime.now()
-    print(f'Output:\n{"=" * 80}\n{output}\n')
-    print(f'Duration: {end_time - start_time}')
-    return output
+                                          volumes=volumes,
+                                          detach=True)
+    return container

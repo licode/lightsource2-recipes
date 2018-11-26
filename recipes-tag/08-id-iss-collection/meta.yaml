@@ -1,6 +1,6 @@
 {% set year = "2018" %}
-{% set cycle = "2" %}
-{% set version ="0" %}
+{% set cycle = "3" %}
+{% set version ="1" %}
 
 package:
   name: 08-id-iss-collection
@@ -11,6 +11,7 @@ build:
 
 requirements:
   run:
-    - isstools
-    - netcdf4
+    - 08-id-iss-analysis
+    - kafka-python
     - lightflow
+    - swift-t

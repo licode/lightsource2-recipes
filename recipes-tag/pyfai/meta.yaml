@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1 
+  number: 1003
   script: python setup.py build install  # [linux or win]
   script: python setup.py build --no-openmp  && python setup.py install  # [osx]
   entry_points:
@@ -34,31 +34,26 @@ build:
 
 requirements:
   build:
-    - python
-    - setuptools
-    - numpy 1.11.*
+    - {{ compiler('c') }}
+  host:
     - cython
-    - scipy
     - fabio
     - h5py
-    - toolchain
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
+    - numpy
+    - python
+    - scipy
+    - setuptools
 
   run:
-    - python
-    - numpy >=1.11
     - fabio
-    - scipy
     - h5py
-    - pillow
     - lxml
     - matplotlib
+    - numpy
+    - pillow
+    - python
+    - scipy
     - silx
-    - vc 9  # [win and py27]
-    - vc 10  # [win and py34]
-    - vc 14  # [win and py>=35]
 
 test:
   imports:
