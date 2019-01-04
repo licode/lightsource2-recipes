@@ -11,9 +11,7 @@ build:
 
 requirements:
   run:
-    - gsl
-    - libiconv
-    - pcre
     - hkl
-    - hklpy
+    - hklpy >=0.3.13
     - eiger-io
+    - 04-id-isr-analysis
