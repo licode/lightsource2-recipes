@@ -66,7 +66,7 @@ cat $CONDARC_PATH
 # install some required dependencies
 echo "start installation"
 conda install python=3.6 -y
-conda install conda=4.3 conda-build anaconda-client conda-execute conda-env
+conda install conda conda-build anaconda-client conda-execute conda-env
 
 
 # not sure why this is here, but I'm reasonably certain it is important
